@@ -82,3 +82,4 @@ C:\Users\faaristizabalp\source\repos\SuperHeroeApi\SuperHeroeApi\obj\Debug\net7.
 C:\Users\faaristizabalp\source\repos\SuperHeroeApi\SuperHeroeApi\obj\Debug\net7.0\SuperHeroeApi.pdb
 C:\Users\faaristizabalp\source\repos\SuperHeroeApi\SuperHeroeApi\obj\Debug\net7.0\SuperHeroeApi.genruntimeconfig.cache
 C:\Users\faaristizabalp\source\repos\SuperHeroeApi\SuperHeroeApi\obj\Debug\net7.0\ref\SuperHeroeApi.dll
+C:\Users\faaristizabalp\source\repos\SuperHeroeApi\SuperHeroeApi\obj\Debug\net7.0\SuperHeroeApi.sourcelink.json

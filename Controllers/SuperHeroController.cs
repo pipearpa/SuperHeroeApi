@@ -7,18 +7,6 @@ namespace SuperHeroeApi.Controllers
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
-        private static List<SuperHero> heroes = new List<SuperHero>
-            {
-               
-                new SuperHero {
-                    Id = 2,
-                    Name = "Ironman",
-                    FirsName = "Tony",
-                    LastName = "Stark",
-                    Place = "Long Island"
-                }
-
-            };
         private readonly DataContext _context;
 
         // Constructor del controlador SuperHeroController
@@ -55,34 +43,35 @@ namespace SuperHeroeApi.Controllers
         [HttpPut]
         public async Task<ActionResult<List<SuperHero>>> UpdateHero(SuperHero request)
         {
-            var hero = heroes.Find(h => h.Id == request.Id);
-            if (hero == null)
-                return BadRequest("Hero not found.");
+            var dbHero = await _context.SuperHeroes.FindAsync(request.Id);
+            if (dbHero == null)
+                return BadRequest("dbHero not found.");
 
-            hero.Name = request.Name;
-            hero.FirsName = request.FirsName;
-            hero.LastName = request.LastName;
-            hero.Place = request.Place;
+            dbHero.Name = request.Name;
+            dbHero.FirsName = request.FirsName;
+            dbHero.LastName = request.LastName;
+            dbHero.Place = request.Place;
 
-            return Ok(heroes);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.SuperHeroes.ToListAsync());
         }
         [HttpDelete("{id}")] 
         // Atributo que especifica que este método maneja solicitudes DELETE y toma un parámetro 'id' en la ruta
         public async Task<ActionResult<List<SuperHero>>> DeleteHero(int id)
         // Método del controlador que elimina un héroe
         {
-            // Busca el héroe con el ID proporcionado en la lista de héroes
-            var hero = heroes.Find(h => h.Id == id);
-
-            // Si no se encuentra el héroe, devuelve una respuesta BadRequest con un mensaje
-            if (hero == null)
+            var dbHero = await _context.SuperHeroes.FindAsync(id);
+            if (dbHero == null)
                 return BadRequest("Hero not found.");
+            
 
             // Si se encuentra el héroe, elimínalo de la lista de héroes
-            heroes.Remove(hero);
+            _context.SuperHeroes.Remove(dbHero);
+            await _context.SaveChangesAsync();  
 
             // Devuelve una respuesta Ok junto con la lista actualizada de héroes
-            return Ok(heroes);
+            return Ok(await _context.SuperHeroes.ToListAsync());
         }
 
 
